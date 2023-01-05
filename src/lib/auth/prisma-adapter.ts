@@ -1,12 +1,15 @@
 
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse, NextPageContext } from "next";
 import { Adapter } from "next-auth/adapters";
 import { userAgent } from "next/server";
 import { useId, useImperativeHandle } from "react";
 import { destroyCookie, parseCookies } from "nookies";
 import { prisma } from "../prisma";
 
-export function PrismaAdapter(req: NextApiRequest, res: NextApiResponse): Adapter {
+export function PrismaAdapter(
+  req: NextApiRequest | NextPageContext['req'],
+  res: NextApiResponse | NextPageContext['res'],
+  ): Adapter {
 
     return {
       async createUser(user) {
